@@ -1,0 +1,24 @@
+{
+  "name": "framejs",
+  "version": "1.0.0",
+  "description": "A javascript framework for building simple UI's",
+  "main": "frame.js",
+  "scripts": {
+    "test": "run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeGuide/Framejs.git"
+  },
+  "keywords": [
+    "Framejs",
+    "Ui",
+    "Framework"
+  ],
+  "author": "Uzodimma Joseph",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodeGuide/Framejs/issues"
+  },
+  "homepage": "https://github.com/CodeGuide/Framejs#readme"
+}
