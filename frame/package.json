@@ -1,24 +1,24 @@
 {
-  "name": "framejs",
-  "version": "1.0.0",
-  "description": "A javascript framework for building simple UI's",
-  "main": "frame.js",
+  "name": "grealjs",
+  "version": "1.3.2",
+  "description": "A micro Javascript Library for building Web Interface",
+  "main": "Greal.js",
   "scripts": {
-    "test": "run"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CodeGuide/Framejs.git"
+    "url": "git://github.com/iamGodskid/GrealJS.git"
   },
   "keywords": [
-    "Framejs",
-    "Ui",
-    "Framework"
+    "GrealJs",
+    "framework",
+    "UI"
   ],
   "author": "Uzodimma Joseph",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CodeGuide/Framejs/issues"
+    "url": "https://github.com/iamGodskid/GrealJS/issues"
   },
-  "homepage": "https://github.com/CodeGuide/Framejs#readme"
+  "homepage": "https://github.com/iamGodskid/GrealJS#readme"
 }
