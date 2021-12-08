@@ -30,7 +30,7 @@ app.buildComponent("body", {
 
 this will build a template of html to the DOM...
 
-## FRAMEJS METHODS
+## GREALJS METHODS
 # buildComponent();
 # bindEvent();
 # mounted();
