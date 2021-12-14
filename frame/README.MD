@@ -9,7 +9,7 @@ it is structured to be simple and friendly... with simple syntax...
 # Install via github then reference it in your html
 
 ```html
-<script src="path/to/greal.js"></script>
+<script src="path/to/Greal.js"></script>
 ```
 
 ## GREALJS USAGE/STRUCTURE
@@ -17,7 +17,9 @@ it is structured to be simple and friendly... with simple syntax...
 add a script tag at the bottom of the body element and call a framejs instance
 
 ```javascript
-
+//if your using the es module...
+//your script type must be module.. then import GrealComponent thus
+import {GrealComponents} from './path/to/Greal.es.js';
 const app = new GrealComponents();
 app.buildComponents("body", {
     template: `
