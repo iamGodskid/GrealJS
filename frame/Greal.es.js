@@ -1,6 +1,6 @@
-/****************************8
+****************************8
 *       GREALJS              *
-*         V1.3.2            *
+*         V1.5.0            *
 *    BY UZODIMMA JOSEPH     *
 *****************************/
 export class GrealComponents {
@@ -30,6 +30,31 @@ export class GrealComponents {
     }
 
   }
+  /*mounting buildComponents
+  ************000000000*/
+  
+ mountComponent(tt, optt){
+  if(typeof tt == "undefined" && typeof optt == "undefined") throw "parameters are undefined";
+ if(typeof tt != "string") throw "first parameter must be a string";
+ if(typeof optt != "object") throw "typeof parameter 2 must be object";
+   
+ else{
+   let elmn = document.querySelector(tt);
+   let UI = optt.template;
+   
+   elmn.style.padding = "3px";
+   //create childNodes
+if(UII){
+
+  elmn.innerHTML = optt.template;
+  this.temps += optt.template;
+  
+} 
+}  
+
+ 
+}
+
   /*****************
   *bindEvent Handler  *
   *               *
