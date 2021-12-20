@@ -1,46 +1,38 @@
-****************************8
+/****************************8
 *       GREALJS              *
 *         V1.5.0            *
 *    BY UZODIMMA JOSEPH     *
 *****************************/
-class GrealComponents {
-  constructor() {
-    this.temps = "";
-  }
-  buildComponents(t, opt) {
-   if(!t || !opt) throw Error("cant mount template on void, specify parent node to mount template... either first/second parameter missing");
+var GrealComponent=(function(){
+"use strict";
+ this.temp = [];
+  this.currentHook = [];
+   this.hookhold = [];
+  
+  
+  this.buildComponents=(opt)=>{
    if(!opt) throw Error("null template... provide second parameter in buildComponents()");
-    if (typeof t == "undefined" && typeof opt == "undefined") throw "parameters are undefined";
-    if (typeof t != "string") throw "first parameter must be a string";
-    if (typeof opt != "object") throw "typeof parameter 2 must be object";
+    if (typeof opt == "undefined") throw Error("parameters are undefined");
+   if (typeof opt != "function") throw Error("typeof buildComponents param must be function" +" "+ opt + " "+"given");
 
     else {
-      let elmnt = document.querySelector(t);
-      let UI = opt.template;
-      let UI_amaze = document.getElementsByTagName("div");
-      let amaze_hold = [UI_amaze];
-
-      elmnt.style.padding = "5px";
-      elmnt.style.borderRadius = "5px";
-      //create childNodes
-      if (UI) {
-        elmnt.innerHTML = opt.template;
-        this.temps += opt.template;
+      this.temp.push(opt());
+      for(const dom of this.temp){
+        document.write(dom);
       }
     }
-
   }
   /*mounting buildComponents
   ************000000000*/
   
- mountComponent(tt, optt){
+ this.mountComponent=(tt, optt)=>{
   if(typeof tt == "undefined" && typeof optt == "undefined") throw "parameters are undefined";
  if(typeof tt != "string") throw "first parameter must be a string";
  if(typeof optt != "object") throw "typeof parameter 2 must be object";
    
  else{
    let elmn = document.querySelector(tt);
-   let UI = optt.template;
+   let UII = optt.template;
    
    elmn.style.padding = "3px";
    //create childNodes
@@ -60,7 +52,7 @@ if(UII){
   *               *
   * ***************/
 
-  bindEvent(el, t, handle) {
+  this.bindEvent=(el, t, handle)=>{
     if (!el && !t && !handle)
       throw Error("zero handlers");
 
@@ -71,14 +63,15 @@ if(UII){
         "onmouseout",
         "onmouseover",
         "onfocus",
-        "onblur"];
+        "onblur",
+        ];
      
      
       let handle_el = document.querySelector(el);
       if (el === undefined || t === undefined || handle === undefined) throw Error("undefined expressions in bindEvent parameter");
       if (typeof el != "string" || typeof t != "string") throw Error("typeof params 1 & 2 bindEvent must be strings denoting elements id and type of event handler");
 for(const eventsarr of arrevents){
-      if (handle_el.hasAttribute(eventsarr)) throw Error("remove events from templates to avoid errors... use id's to handle event in framejs");
+      if (handle_el.hasAttribute(eventsarr)) throw Error("remove events from templates to avoid errors... use id's/classnames to bind event in grealjs>>>"+" "+eventsarr+" "+"found on element");
 
       else {
         let param = document.querySelector(el);
@@ -103,7 +96,7 @@ for(const eventsarr of arrevents){
     }
   }
 }
-  Events(funcs) {
+  this.Events=(funcs)=>{
     if (!funcs) throw "empty Events()";
     else {
       try {
@@ -157,4 +150,77 @@ for(const eventsarr of arrevents){
 
     }
   }
+
+this.hooks=(optstates)=>{
+  if(!optstates) throw "hooks() method expects atleast 1 parameter, null given";
+  else{
+    if(typeof optstates !== "object") throw Error("hooks requires object parameter..."+" "+"'"+optstates+"'"+" "+"given");
+ try{
+   if(typeof optstates == "function") throw Error("function is not supportted as a hook in GREALJS");
+ }catch(err){
+   throw Error("undefined"+" "+"'"+optstates+"'"+" "+"not supportted");
+ }
+ let findstates = document.body.querySelectorAll("*");
+ for(const state of findstates){
+ const hooker = state.innerText;
+ if(hooker.indexOf("@") !== 0 && hooker.lastIndexOf("@") !== 2) console.warn("invalid hook");
+ else{
+  
+   if(state.innerText.slice(2) in optstates){
+   this.hookhold.push(state.innerText.slice(2))
+   
+   console.log(this.hookhold);
+     const $$state = state.innerText = optstates[state.innerText.slice(2)];
+  
+  
+   this.currentHook.push(optstates);
 }
+}
+
+//checking for hooks as attribute values
+ 
+ for(const attrhook of state.getAttributeNames()){
+   if(attrhook.startsWith("g-href") && state.getAttribute("g-href") in optstates){
+         state.href= optstates[state.getAttribute("g-href")]; 
+   }
+  
+  //hook for classes
+ if(attrhook.startsWith("g-class") && state.getAttribute("g-class") in optstates){
+         state.className= optstates[state.getAttribute("g-class")];
+     }
+  
+ //hook for ids
+ 
+ if(attrhook.startsWith("g-id") && state.getAttribute("g-id") in optstates){
+         state.id= optstates[state.getAttribute("g-id")]; 
+  }
+  
+ }
+ 
+ 
+ }
+  }
+}
+/*switching hooks
+* for state changing
+
+this.switchHook=(hook)=>{
+  if(!hook) throw Error("switchHook cant be empty... null given at switchHook");
+  else{
+    if(typeof hook !== "object") throw Error("unsupported switcher... hook switcher must be of type object");
+    try{
+      if(typeof hook == "function") throw Error("function cant be used as hook.. expected object");
+    }catch(errs){
+      throw Error("undefined hook switcher")
+    }
+    
+  console.log(this.currentHook)
+    const elhooked = document.body.querySelectorAll('*');
+   
+   
+   
+   
+  }
+}*/
+
+})
