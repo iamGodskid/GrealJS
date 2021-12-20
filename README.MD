@@ -1,4 +1,4 @@
-#### GREAL JS
+## GREAL JS
 #  A Javascript Micro Framework for Building Web Interface/User Interface
 it is structured to be simple and friendly... with simple syntax...
 
@@ -14,18 +14,15 @@ it is structured to be simple and friendly... with simple syntax...
 
 ## GREALJS USAGE/STRUCTURE
 
-add a script tag at the bottom of the body element and call a framejs instance
+add a script tag at the bottom of the body element and call a grealjs instance
 
 ```javascript
-//if your using the es module...
-//your script type must be module.. then import GrealComponent thus
-import {GrealComponents} from './path/to/Greal.es.js';
-const app = new GrealComponents();
-app.buildComponents("body", {
-    template: `
-    <h1>LOREM IPSUM DOLOR</h1>
+const app = new GrealComponent();
+app.buildComponents(()=>{
+    return ( `
+    <h1 g-class="text">LOREM IPSUM DOLOR</h1>
 
-    `
+    `)
 })
 
 ```
@@ -37,24 +34,37 @@ this will build a template of html to the DOM...
 # bindEvent();
 # mountComponent();
 # Events();
+# hooks();
 
 
 ## USAGE
 ```javascript
-const app = new GrealComponents();
-app.buildComponents("#app", {
-    template: `
-<button id="btn">CLICK ME</button>
-    `
+const app = new GrealComponent();
+app.buildComponents(()=>{
+    return (`
+<button @click="pop" g-id="btn">@@component</button>
+    `)
 });
+app.hooks({
+component: "click me",
+btn: "button",
+})
 app.bindEvent("#btn", "click", {
     event: ()=>{
         document.write("LOREM IPSUM DOLOR AMIT");
     }
 });
+//the above method binds events to element as it prevents element from controlling other events
+//you could use the Events method 
+
+app.Events({
+pop:()=>{
+alert("hello world");
+}
+})
 
 //you could use the mountedComponent() method to load eelemnts after document loads
-const App = new Greal();
+const App = new GrealComponent();
 App.mountComponent("#app", {
     template: `
 <h1 id="text">Loren ipsum dolor Amit</h1>
@@ -63,16 +73,20 @@ App.mountComponent("#app", {
 });
 
 //using Events() method to handle events
-const x = new GrealComponents();
-x.buildComponents("body", {
-template: `
-<button @click="pop">popper</button>
-`
+const x = new GrealComponent();
+x.buildComponents(()=>{
+return (`
+<button @click="pop">@@popper</button>
+`)
 });
 x.Events({
 pop: ()=>{
 alert("popped");
 }
+})
+//grealjs provides hooks to handle data states just like the react states
+x.hooks({
+popper: "i am a component"
 })
 
 ```
