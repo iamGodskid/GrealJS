@@ -14,7 +14,7 @@ it is structured to be simple and friendly... with simple syntax...
 
 ## GREALJS USAGE/STRUCTURE
 
-add a script tag at the bottom of the body element and call a framejs instance
+add a script tag at the bottom of the body element and call a grealjs instance
 
 ```javascript
 const app = new GrealComponent();
