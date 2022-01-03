@@ -182,7 +182,6 @@ this.hooks=(optstates)=>{
 const arr = [state[s]];
 const hookexp = /{{/;
 const hookexp2=/}}/;
-console.log(hooker.search(hookexp2))
 try{
 if(hooker.search(hookexp)===-1)console.warn("undefined hooker found"+" "+"'"+hooker+"'");
  if(hooker.search(hookexp) !==0)
@@ -194,7 +193,7 @@ throw Error("invalid hook found in"+" "+state[s]+" "+"enclose hooks in {{}} for 
 if(hooker.search(hookexp2)=== -1) throw Error("incomplete hook enclose found in"+" " + state[s].outerHTML);
 const slicer = state[s].innerText.replace(/{{/, "");
 const sliced=slicer.replace(/}}/g, "").trim();
-console.log(sliced);
+
    if(sliced  in optstates){
    this.resources.hookhold.push(sliced);
    
@@ -215,7 +214,6 @@ console.log(sliced);
    
     this.resources.optstatehold.keyhook.push(ik) //optstates[state.innerText.slice(2)];
     
-    console.log(this.resources.optstatehold.keyhook)
     state[s].innerText = optstates[_state];
   
   
@@ -261,7 +259,7 @@ this.switchHook=(hook)=>{
       throw Error("undefined hook switcher")
     }
     
-  console.log(this.currentHook)
+  
     const elhooked = document.body.querySelectorAll('*');
    
    
