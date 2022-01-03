@@ -1,7 +1,8 @@
 /****************************8
 *       GREALJS              *
 *         V1.5.2           *
-*    BY UZODIMMA JOSEPH     *
+*    BY UZODIMMA JOSEPH 
+   please star on github     *
 *****************************/
 var GrealComponent=(function(mp){
 "use strict";
