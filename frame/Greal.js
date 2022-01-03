@@ -1,6 +1,6 @@
 /****************************8
 *       GREALJS              *
-*         V1.5.0            *
+*         V1.5.2           *
 *    BY UZODIMMA JOSEPH     *
 *****************************/
 var GrealComponent=(function(mp){
