@@ -3,13 +3,31 @@
 *         V1.5.0            *
 *    BY UZODIMMA JOSEPH     *
 *****************************/
-var GrealComponent=(function(){
+var GrealComponent=(function(mp){
 "use strict";
  this.temp = [];
-  this.currentHook = [];
-   this.hookhold = [];
-  
-  
+ this.resources={
+  currentHook : [],
+   hookhold : [],
+elemsw: [],
+  optstatehold:{
+    keyhook:[]
+  } 
+ }
+ this.styleArr=[];
+ //removing script tags from body and appending them to head
+ this.parser=()=>{
+   let scr = document.body.querySelectorAll("script");
+   for(const i of scr){
+   let parse = i;
+   document.head.appendChild(parse);
+i.remove();
+    }
+ }
+ this.parser();
+ 
+
+
   this.buildComponents=(opt)=>{
    if(!opt) throw Error("null template... provide second parameter in buildComponents()");
     if (typeof opt == "undefined") throw Error("parameters are undefined");
@@ -18,7 +36,7 @@ var GrealComponent=(function(){
     else {
       this.temp.push(opt());
       for(const dom of this.temp){
-        document.write(dom);
+     document.write(dom);
       }
     }
   }
@@ -39,8 +57,6 @@ var GrealComponent=(function(){
 if(UII){
 
   elmn.innerHTML = optt.template;
-  this.temps += optt.template;
-  
 } 
 }  
 
@@ -112,36 +128,36 @@ for(const eventsarr of arrevents){
         "onfocus",
         "onblur"];
       let elements = document.querySelectorAll("*");
-      for (const el of elements) {
-        for (const els of el.getAttributeNames()) {
+      for (var i=0;i<elements.length;i++) {
+        for (const els of elements[i].getAttributeNames()) {
           for (const ev of arr) {
-            if (els.startsWith("ev"))throw Error("TERM"+" "+ev+" "+"found as attribute in"+" "+el.outerHTML+" "+"...remove to avoid pesistent errors");
+            if (els.startsWith("ev"))throw Error("TERM"+" "+ev+" "+"found as attribute in"+" "+elements[i].outerHTML+" "+"...remove to avoid pesistent errors");
           }
-          if (els.startsWith("@click") && el.getAttribute("@click") in funcs) {
-            el.onclick = funcs[el.getAttribute("@click")];
+          if (els.startsWith("@click") && elements[i].getAttribute("@click") in funcs) {
+            elements[i].onclick = funcs[elements[i].getAttribute("@click")];
           }
         
         //dblclick
-       if (els.startsWith("@dblclick") && el.getAttribute("@dblclick") in funcs) {
-            el.ondblclick = funcs[el.getAttribute("@dblclick")];
+       if (els.startsWith("@dblclick") && elements[i].getAttribute("@dblclick") in funcs) {
+            element[i].ondblclick = funcs[elements[i].getAttribute("@dblclick")];
           }
    //mouseout  
-       if (els.startsWith("@mouseout") && el.getAttribute("@mouseout") in funcs) {
-            el.onmouseout = funcs[el.getAttribute("@mouseout")];
+       if (els.startsWith("@mouseout") && elements[i].getAttribute("@mouseout") in funcs) {
+            elements[i].onmouseout = funcs[elements[i].getAttribute("@mouseout")];
           }      
     //mouseover      
-          if (els.startsWith("@mouseover") && el.getAttribute("@mouseover") in funcs) {
-            el.on = funcs[el.getAttribute("@mouseover")];
+          if (els.startsWith("@mouseover") && elements[i].getAttribute("@mouseover") in funcs) {
+            elements[i].onmouseover = funcs[elements[i].getAttribute("@mouseover")];
           }
           
     //focus
-      if (els.startsWith("@focus") && el.getAttribute("@focus") in funcs) {
-            el.onfocus = funcs[el.getAttribute("@focus")];
+      if (els.startsWith("@focus") && elements[i].getAttribute("@focus") in funcs) {
+            elements[i].onfocus = funcs[elements[i].getAttribute("@focus")];
           }     
    //blur
    
-  if (els.startsWith("@blur") && el.getAttribute("@blur") in funcs) {
-            el.ondblclick = funcs[el.getAttribute("@blur")];
+  if (els.startsWith("@blur") && elements[i].getAttribute("@blur") in funcs) {
+            elements[i].ondblclick = funcs[elements[i].getAttribute("@blur")];
           }
           
           
@@ -160,39 +176,69 @@ this.hooks=(optstates)=>{
  }catch(err){
    throw Error("undefined"+" "+"'"+optstates+"'"+" "+"not supportted");
  }
- let findstates = document.body.querySelectorAll("*");
- for(const state of findstates){
- const hooker = state.innerText;
- if(hooker.indexOf("@") !== 0 && hooker.lastIndexOf("@") !== 2) console.warn("invalid hook");
- else{
-  
-   if(state.innerText.slice(2) in optstates){
-   this.hookhold.push(state.innerText.slice(2))
+ let state = document.body.querySelectorAll("*");
+ for(var s=0;s<state.length;s++){
+   const hooker = state[s].innerText;
+const arr = [state[s]];
+const hookexp = /{{/;
+const hookexp2=/}}/;
+console.log(hooker.search(hookexp2))
+try{
+if(hooker.search(hookexp)===-1)console.warn("undefined hooker found"+" "+"'"+hooker+"'");
+ if(hooker.search(hookexp) !==0)
+throw Error("invalid hook found in"+" "+state[s]+" "+"enclose hooks in {{}} for hooks in GREALJS");
+
+}catch(err){
+  console.warn(err)
+}
+if(hooker.search(hookexp2)=== -1) throw Error("incomplete hook enclose found in"+" " + state[s].outerHTML);
+const slicer = state[s].innerText.replace(/{{/, "");
+const sliced=slicer.replace(/}}/g, "").trim();
+console.log(sliced);
+   if(sliced  in optstates){
+   this.resources.hookhold.push(sliced);
    
-   console.log(this.hookhold);
-     const $$state = state.innerText = optstates[state.innerText.slice(2)];
+   const regexpn = new RegExp(/>/);
+   console.log(regexpn.test(state[s].outerHTML));
+   console.log(sliced)
+   
+   
+   console.log(this.resources.hookhold);
+  const _state = sliced;
+   
+   const key = Object.keys(optstates);
+   for(var ik of key){
+    
+  ik = {
+    hook:optstates[sliced]
+  }
+   
+    this.resources.optstatehold.keyhook.push(ik) //optstates[state.innerText.slice(2)];
+    
+    console.log(this.resources.optstatehold.keyhook)
+    state[s].innerText = optstates[_state];
   
   
-   this.currentHook.push(optstates);
-}
-}
+   this.resources.currentHook.push(optstates);
+
+}}
 
 //checking for hooks as attribute values
  
- for(const attrhook of state.getAttributeNames()){
-   if(attrhook.startsWith("g-href") && state.getAttribute("g-href") in optstates){
-         state.href= optstates[state.getAttribute("g-href")]; 
+ for(const attrhook of state[s].getAttributeNames()){
+   if(attrhook.startsWith("g-href") && state[s].getAttribute("g-href") in optstates){
+         state[s].href= optstates[state[s].getAttribute("g-href")]; 
    }
   
   //hook for classes
- if(attrhook.startsWith("g-class") && state.getAttribute("g-class") in optstates){
-         state.className= optstates[state.getAttribute("g-class")];
+ if(attrhook.startsWith("g-class") && state[s].getAttribute("g-class") in optstates){
+         state[s].className= optstates[state[s].getAttribute("g-class")];
      }
   
  //hook for ids
  
- if(attrhook.startsWith("g-id") && state.getAttribute("g-id") in optstates){
-         state.id= optstates[state.getAttribute("g-id")]; 
+ if(attrhook.startsWith("g-id") && state[s].getAttribute("g-id") in optstates){
+         state[s].id= optstates[state[s].getAttribute("g-id")]; 
   }
   
  }
@@ -203,7 +249,8 @@ this.hooks=(optstates)=>{
 }
 /*switching hooks
 * for state changing
-
+*/
+/*
 this.switchHook=(hook)=>{
   if(!hook) throw Error("switchHook cant be empty... null given at switchHook");
   else{
@@ -221,6 +268,29 @@ this.switchHook=(hook)=>{
    
    
   }
-}*/
+}
+*/
+/*  
+*  styling
+*/
 
-})
+this.createStyleSheet=(style)=>{
+  if(!style) console.warn("empty styleSheet");
+  else{
+    if(typeof style !== "function") throw Error("unrecognized styleSheet type, must be function to return" + " " +style + " "+ "given");
+    else{
+    let regexp = /:/;
+    this.styleArr.push(style());
+    const styleHold = document.head;
+    const sty = document.createElement("style");
+    sty.type="text/css";
+    sty.media = "all";
+   
+      for(const stytemp of this.styleArr){
+        sty.innerText = stytemp;
+      }
+     styleHold.append(sty); 
+    }
+  }
+}
+});
