@@ -35,14 +35,16 @@ this will build a template of html to the DOM...
 # mountComponent();
 # Events();
 # hooks();
+# createStyleSheet
 
 
 ## USAGE
 ```javascript
+//buildComponents method mounts template directly to body
 const app = new GrealComponent();
 app.buildComponents(()=>{
     return (`
-<button @click="pop" g-id="btn">@@component</button>
+<button @click="pop" g-id="btn">{{component}}</button>
     `)
 });
 app.hooks({
@@ -63,7 +65,7 @@ alert("hello world");
 }
 })
 
-//you could use the mountedComponent() method to load eelemnts after document loads
+//you could use the mountedComponent() method to load elements to target parent element after document loads
 const App = new GrealComponent();
 App.mountComponent("#app", {
     template: `
@@ -76,7 +78,7 @@ App.mountComponent("#app", {
 const x = new GrealComponent();
 x.buildComponents(()=>{
 return (`
-<button @click="pop">@@popper</button>
+<button @click="pop">{{popper}}</button>
 `)
 });
 x.Events({
@@ -88,5 +90,20 @@ alert("popped");
 x.hooks({
 popper: "i am a component"
 })
+//recent upgrade to grealjs is
+//the createStylesheet method
+//it gives you privillege to work with actual css in greal
 
+x.createStyleSheet(()=>{
+return(
+`
+button{
+background: rgb(20,230,50);
+color:white;
+}
+`
+)
+
+})
 ```
+## ENJOY
